@@ -1,0 +1,112 @@
+/*
+================================
+******* IMAGE COMPOSITION COMPONENT *********
+================================
+
+* using BEM (block element model)
+* width:
+    * set to 55% browser with calculate the height
+* box-shadow:
+    * x, y, blur, rgba(color, opacity)
+* border-radius:
+    * round out our border a little bit. 
+* position:
+    * relative so that we can absolutely position
+    our photos. 
+
+* --p1, --p2, --p3
+    * we position them within our absolutely positioned
+    container. -2 to shift it up, 0 to push to the corners.
+
+* z-index: 
+    * We need to set an initial z-index for all the images
+    * so that on hover we can change it to make it appear
+    if front of all the images.
+
+* transition: 
+    * Since we are transforming by scaling by 105 we need to
+    set all are transitions in .2s
+
+* outline-offset:
+    * creates a space between the outline and our images. 
+
+* :hover
+    * transform: make our image appear larger. translate it on
+    the y so the image moves up. 
+    * box-shadow: if it's appearing larger increase the box-shadow
+    * z-index: increase the z-index so we see the image. 
+    * outline: we want to create a border around the image with space
+    inbetween the borde and the image. Now to add the space we need
+    to set the outline offset. 
+
+* how do we make sure the images around the hovered img becomes smaller
+    * &:hover &__photo:not(:hover)
+    * on hover in the composition component. Find the photo 
+    that is not hovered. 
+
+
+*/
+
+.composition {
+    position: relative;
+
+    &__photo {
+        width: 55%;
+        box-shadow: 0 1.5rem 4rem rgba($color-black, .4);
+        border-radius: 2px;
+        position: absolute;
+        z-index: 10;
+        transition: all .2s;
+        outline-offset: 2rem;
+
+        @include respond(tab-port) {
+            float: left;
+            position: relative;
+            width: 33.333333%;
+            box-shadow: 0 1.5rem 3rem rgba($color-black, .2);
+        }
+
+        &--p1 {
+            left: 0;
+            top: -2rem;
+
+            @include respond(tab-port) {
+                top: 0;
+                transform: scale(1.2);
+            }
+        }
+
+        &--p2 {
+            right: 0;
+            top: 2rem;
+
+            @include respond(tab-port) {
+                top: -1rem;
+                transform: scale(1.3);
+                z-index: 100;
+            }
+        }
+
+        &--p3 {
+            left: 20%;
+            top: 10rem;
+
+            @include respond(tab-port) {
+                top: 1rem;
+                left: 0;
+                transform: scale(1.1);
+            }
+        }
+
+        &:hover {
+            outline: 1.5rem solid $color-primary;
+            transform: scale(1.05) translateY(-.5rem);
+            box-shadow: 0 1.5rem 4rem rgba($color-black, .4);
+            z-index: 20;
+        }
+    }
+
+    &:hover &__photo:not(:hover) {
+        transform: scale(.95);
+    }
+}

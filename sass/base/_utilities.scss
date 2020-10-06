@@ -1,0 +1,43 @@
+/* 
+==========================================================
+UTILITIES - DEALS WITH UTILITIES STYLES THAT CAN BE REUSED
+==========================================================
+*/
+
+/*
+We use this utility class so that we can style e.g.
+heading-secondary and position independently. It
+allow us to both reuse the heading secondary and the
+u-center-text. 
+*/
+.u-center-text {
+    text-align: center !important;
+}
+
+.u-margin-bottom-big {
+    margin-bottom: 8rem !important;
+
+    @include respond(tab-port) {
+        margin-bottom: 5rem !important;
+    }
+}
+
+.u-margin-bottom-medium {
+    margin-bottom: 4rem !important;
+
+    @include respond(tab-port) {
+        margin-bottom: 3rem !important;
+    }
+}
+
+.u-margin-bottom-small {
+    margin-bottom: 1.5rem !important;
+}
+
+.u-margin-top-small {
+    margin-top: 8rem !important;
+}
+
+.u-margin-top-huge {
+    margin-top: 10rem !important;
+}

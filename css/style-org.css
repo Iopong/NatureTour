@@ -1,0 +1,384 @@
+/*
+COLORS:
+
+Light green: #7ed56f
+Medium green: #55c57a
+Dark green: #28b485
+
+*/
+
+
+/* 
+===================================
+UNIVERSAL BROWSER SETTINGS
+===================================
+margin -> no outside spacing is added by the browser.
+padding -> no default padding is added by the browser
+box-sizing -> change our box-model so that the borders and
+the paddings aren't added to the total width and height of our box. 
+
+*::after, *::before. We want our after and before pseudo elements
+to also exhibit these changes. 
+*/
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+    /* box-sizing: border-box;  */
+}
+
+
+/* 
+===================================
+UNIVERSAL FONT SETTING WHY?!?!
+===================================
+margin -> we set a root font size so that
+it is easier for us to modify the different 
+font sizes of our page when we want to make it responsive. 
+
+Remember that "rem" uses the root font size. 
+Now we can just divide to get what we want. 
+The default font-size is 16px. We set it to 
+10px to make our lifes easier. 
+
+e.g. 30px -> 3rem -> 3 * (10)default font size
+rem's are not supported below internet explorer 9. 
+
+** however it is bad practice to use px in general since
+it changes the root font size and cannot be changed. We want 
+a percentage of the root font-size.
+
+so 100% -> 16px (default font-size)
+so we want our 16px -> 10/16 -> 0.625 -> 62.5
+*/
+
+html {
+    font-size: 62.5%;
+}
+
+/* 
+===================================
+BODY - INHERITANCE
+===================================
+
+These will all be inherited by the child elements 
+
+font-family -> our font we want to be inherited.
+font-weight -> the heaviness of our font
+font-size -> we want to use em or rem as opposed to px
+line-weight -> line height
+padding -> adds 30px padding around the body ... it does not get inherited.
+color->  color our our font. 
+
+*/
+
+body {
+    font-family: "lato", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #777;
+    padding: 3rem;
+    box-sizing: border-box; /*set in body to be inherited*/
+}
+
+
+/*
+===================================
+HEADER OF OUR PAGE
+===================================
+
+height -> we want our height to be 95% of our viewport always.
+background-image -> sets an image to our header component. 
+    -We want to set an overlay so we set our linear-gradient(), url(image)
+    -linear-gradient
+     -Can set two directions "to right bottom" or "to right"
+     -Add the colors to transition to and from. In our case light green to dark green
+     -To show the image, change the opacity of the color by hovering over the color in the editor. 
+     -Or use rgba (red, blue, opacity) instead. 
+background-size -> to make sure our that our image always covers our element 
+background-position -> we set it to top so that our image is always positioned at the top
+clip-path -> adds a wedge to clipout a part our image that would otherwise be there.
+    -What we want is a polygon so we want to specify our four coordinates.
+
+*/
+
+.header {
+    height: 95vh;
+    background-image: linear-gradient(
+        to right bottom,
+        #7ed56fbe,
+        #28b485d2), 
+        url('../img/hero.jpg');
+    background-size: cover;
+    background-position: top;
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        100% 75vh,
+        0 100%
+    );
+    position: relative;
+}
+
+/* 
+===================================
+LOGO OF OUR PAGE
+===================================
+
+.logo-box
+    postion -> absolute go against the normal flow of the content. 
+    top -> starts from its parent element which is the header so it's
+        position should be relative. 
+        left -> same for the top positioning. It starts from its parent whichi is the header.
+
+.logo
+    height: we set the height of our logo
+    width: the width will scale accordingly by the browser. Vice versa. 
+*/
+
+.header__logo-box {
+    position: absolute;
+    top: 4rem;
+    left: 4rem;
+}
+
+.header__logo {
+    height: 3.5rem;
+}
+
+/* 
+===================================
+HEADING OF OUR PAGE
+===================================
+
+.header-primary -> contains our header
+    -color -> set the color of our font
+    -text-transform -> uppercase for both spans
+    -backface-visibility -> hidden - hides the back of our
+        element so that it does not shake when a transform occurs. 
+    -margin -> we want spacing of the outside element.
+
+.header-primary-main -> contains our first span
+    -display -> block because by default it is inline
+        since span is for styling text inline.
+        block also occupies 100% of our wdith 
+    -font-size: we want it bigger than the one below it
+    -font-weight: we want it heavier than the one below its
+    -letter-spacing: letter spacing should be bigger
+    -animation-name -> name of our animation created. 
+    -animation-duration -> how long we want it to last. 
+
+        -we can also do these other animations
+        -animation-delay -> 3s delay and then go
+        -animation-iteration-count: 3 -> ierate 3 times 
+        -animation-timing-function: 
+            -ease, ease-in, ease-in-out, linear, etc..
+            -check MDN web docs. 
+
+.header-primary-sub -> contains our second span with the same styling
+    -animation -> moveInRight 1s ease-out; short hand
+
+.text-box -> wrapper that centers our heading
+    position -> from our parent which is header set to relative.
+    top -> 50% from the top of our header to middle of the page.
+    left -> 50% from the left of our header to the middle of our page
+        issue -> our box which contains our h1 is not centered completely.
+        the box itself is not centered. To completely do this we need to translate.
+    transform -> translate(-50%, -50%) translates the element itself and not according
+        to its parent element. 
+    text-align -> center all the text inside. 
+
+
+.btn:link -> pseudo elements when it is a link
+.btn:visited -> once the button is visited. 
+.btn:link,
+.btn:visited,
+    -transform the text to uppercase
+    -no decoration e.g. underline etc. 
+    -padding 15px 40px -> top right, bottom, left
+    -display- inline-block cause we don't want it to fill our entire element.
+
+.btn:hover
+.btn:active
+    -transform -> translateY moves it in it epsilon direction
+        Up is negative values. Bottom is positive values. 
+
+===================================
+HEADER - ANIMATIONS - KEYFRAMES
+===================================
+
+@keyframes overview
+    key frames allow us to animate different elements
+    the percentages are the various stages of the animation
+    0% is the beginning, 80%... so on and so forth. 
+    for browser optimization it is best to only use the properties
+    of opacity and transformation
+    you can define an animation and use it anywhere within the page. 
+
+@keyframes moveInLeft
+    This is for our header-primary-main
+
+    zero.
+        opacity -> runs from 0 to 1 so o means we don't want it to be visible
+        transform -> translateX is for translations from left to right on x-axis
+            translation at -100px means move me out of view to the left. 
+    
+    eighty.
+        translate -> to the right 20px; remember that center is zero. 
+    
+    hundred.
+        opacity -> 1  want it to be completely visible
+        transform -> centered at 0 or point of origin. S
+
+*/
+
+.header__text-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-40%, -50%);
+    text-align: center;
+}
+
+.heading-primary {
+    color: #fff;
+    text-transform: uppercase;
+    backface-visibility: hidden;
+    margin-bottom: 6rem;
+}
+
+.heading-primary--main {
+    display: block;
+    font-size: 6rem;
+    font-weight: 700;
+    letter-spacing: 3.5rem;
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+}
+
+.heading-primary--sub {
+    display: block;
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: 1.75rem;
+    animation: moveInRight 1s ease-out; 
+}
+
+@keyframes moveInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-10rem);
+    }
+
+    80% {
+        transform: translateX(1rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes moveInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(10rem);
+    }
+
+    80% {
+        transform: translateX(-1rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes moveButtonUp {
+    0% {
+        opacity: 0;
+        transform: translateY(10rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+.btn:link,
+.btn:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.5rem 4rem; /*top, right, bottom, left */
+    display: inline-block; /* block occupies entire element space */
+    border-radius: 10rem;
+    transition: all .2s;
+    position: relative;
+    font-size: 1.6rem;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, .2) /*x, y, blur, color*/
+}
+
+.btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2) /*x, y, blur, color*/
+}
+
+.btn--white {
+    background-color: #fff;
+    color: #777;
+}
+
+.btn::after {
+    /* 
+        treated as a child of the bottom
+        the content is absolutely neccessary
+
+        we want it to be exactly like our button but hidden
+        so it inherits the height, and width. 
+        position -> it needs to be absolute to its parent. 
+            so we set the buttons position to relative. 
+        z-index -> is set behind the button. 
+        transition -> transition that will be added on hover. 
+        
+    */
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 10rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+}
+
+.btn--white::after {
+    background-color:#fff;
+}
+
+.btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6); /* scale can be scaleX, scaleY */
+    opacity: 0;
+}
+
+.btn--animated {
+    /* 
+        animation; name, duration, timing-function, delay
+        animation-fill-mode: apply the animal before styling. 
+    */
+    animation: moveButtonUp .5s ease-out .75s;
+    animation-fill-mode: backwards;
+}

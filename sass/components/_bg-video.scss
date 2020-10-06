@@ -1,0 +1,42 @@
+/*
+========================================
+********** ABOUT STORIES **************
+========================================
+
+* position: absolute -> or else the video
+    * would be set on top of our story. remember
+    to set it's parent section-stories to relative. 
+
+* z-index: -1 -> so it moves behind the story. 
+
+* opacity: .15 -> so it makes the video more subtle. 
+
+* &__content
+    * height: 100% -> we want the video to entirely fit
+    our story section. 
+
+    * width: 100% -> same as above. 
+
+    * object-fit: cover -> works the same way as the cover 
+    property in background image. Cover also helps it maintain
+    it's aspect ratio to fill the parent element from top to bottom
+    and clips what it doesn't need. 
+*/
+
+.bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    opacity: .15;
+    overflow: hidden;
+
+    &__content {
+        height: 100%;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+}

@@ -1,0 +1,50 @@
+/* 
+=================================================
+***************** FEATURE BOX *******************
+=================================================
+* This will be a feature box that will be reused
+* across four col-1-of-4 containers. 
+* Since we're using webfonts we can set the font-size
+* transition: transform our feature box within .3s
+* __icon
+    * we can treat it as a text since it's a webfont.
+    * display: inline /so that it fills its container
+    * background: we want our gradient left to right
+    * background-clip: clip it to fit only to our icon
+    * color: transparent so we can see the background image. 
+
+*/
+
+.feature-box {
+    background-color: rgba($color-white, .8);
+    font-size: 1.5rem;
+    padding: 2.5rem;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
+    transition: transform .3s;
+
+    @include respond(tab-port) {
+        padding: 2rem;
+    }
+
+    &__icon {
+        font-size: 6rem;
+        margin-bottom: .5rem;
+        display: inline-block;
+        background-image: linear-gradient(
+            to right, $color-primary-light, $color-primary-dark
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+
+        @include respond(tab-port) {
+            margin: 0;
+        }
+    }
+
+    &:hover {
+        transform: translateY(-1.5rem) scale(1.03);
+    }
+}

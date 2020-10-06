@@ -1,0 +1,211 @@
+/*
+========================================
+********** NAVIGATION FILE **************
+========================================
+
+* We treat the navigation as a layout element
+where each page of the website would have the 
+navigation as piece of the layout. The navigation can
+also be considered as a component.  
+*/
+
+.navigation {
+  &__checkbox {
+    display: none;
+  }
+
+  &__button {
+    //position the button above the background element
+    //Make sure it has a higher z-index than the background
+    background-color: $color-white;
+    height: 7rem;
+    width: 7rem;
+    position: fixed;
+    top: 6rem;
+    right: 6rem;
+    border-radius: 50%;
+    z-index: 2000;
+    box-shadow: 0 1rem 3rem rgba($color-black, .1); //x, blur, color
+    text-align: center; //center it's contents since it's an inline text.
+
+    @include respond(tab-port) {
+      top: 4rem;
+      right: 4rem;
+    }
+
+    @include respond(phone) {
+      top: 3rem;
+      right: 3rem;
+    }
+  }
+
+  &__background {
+    height: 6rem;
+    width: 6rem;
+    border-radius: 50%;
+    position: fixed; //Doesn't change as the position of page changes.
+    top: 6.5rem;
+    right: 6.5rem; //0 sets it to the far right. Positive value moves it left.
+    background-image: radial-gradient(
+      $color-primary-light,
+      $color-primary-dark
+    );
+    z-index: 1000; //so it stays above everything.
+    transition: transform .8s cubic-bezier(0.86, 0, 0.07, 1); // check out https://easings.net/en
+
+    @include respond(tab-port) {
+      top: 4.5rem;
+      right: 4.5rem;
+    }
+
+    @include respond(phone) {
+      top: 3.5rem;
+      right: 3.5rem;
+    }
+
+  }
+
+  &__nav {
+    height: 100vh; //we want it to cover the entire page;
+    position: fixed; //Even if we scroll it stays at the same place.
+    top: 0;
+    right: 0;
+    z-index: 1500;
+    opacity: 0; //We don't want to show it. 
+    width: 0; //so that when you hover over the cursor doesn't appear as if the links are there.
+    transition: all .8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+  &__list {
+    //We need to center the list inside our page.
+    //Use a mixin here if possible
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    list-style: none;
+    text-align: center;
+    width: 100%; //since it is centered it moves when we zero in and expand the width;
+  }
+
+  &__item {
+    margin: 1rem;
+  }
+
+  &__link {
+    &:link,
+    &:visited {
+        display: inline-block; //so that the padding is applied the way it should
+      font-size: 3rem;
+      font-weight: 300;
+      color: $color-white;
+      padding: 1rem 2rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      background-image: linear-gradient(
+        120deg,
+        transparent 0%,
+        transparent 50%,
+        $color-white 50%
+      );
+      background-size: 220%; //Shift it to the background;
+      transition: all .4s;
+
+      span {
+          margin-right: 1.5rem;
+          display: inline-block;
+      }
+    }
+
+    &:hover,
+    &:active {
+        background-position: 100%; //Fill our entire position
+        color: $color-primary;
+        transform: translateX(1rem); //move it to the left by 1rem;
+    }
+  }
+
+  //Not a direct/adjacent sibling selector but 
+  //Loosely close sibling selector. 
+  &__checkbox:checked ~ &__background {
+      transform: scale(80);
+  }
+
+  &__checkbox:checked ~ &__nav {
+    opacity: 1;
+    width: 100%;
+  }
+
+  //ICON
+  &__icon {
+    position: relative;
+    margin-top: 3.5rem; //move it down
+
+    &,
+    &::before,
+    &::after {
+      //We want to add after 
+      //before and to the current element. 
+      //We actually aren't drawing any lines
+      //We are just setting their background color to 
+      //dark grey. Remember that we set it inline because
+      //We want to them to stack on top of one another. s
+      width: 3rem;
+      height: 2px;
+      background-color: $color-grey-dark-3;
+      display: inline-block;
+    }
+
+    &::before,
+    &::after {
+      //Remember that in order to set pseudo elements
+      //we need to set the content
+      content: "";
+      position: absolute;
+      left: 0; //Essentially start from the left side of our page
+      transition: all .2s;
+    }
+
+    &::before { 
+      top: -.8rem; //Move it up
+      // transform-origin: right; 
+      //It shifts the center of 
+      //the rotation based on where you set it.
+    }
+    &::after{ top: .8rem; } //Move it down
+  }
+
+  &__button:hover &__icon::before {
+    //Move it up by -.2rem when hovered.
+    top: -1rem;
+  }
+
+  &__button:hover &__icon::after {
+    //Move it down by .2rem when hovered. 
+    top: 1rem;
+  }
+
+  &__checkbox:checked + &__button &__icon {
+    //When the checkbox is selected we select
+    //The button which is ajacent and then 
+    //We select the child of the button __icon
+    //Make sure that you make the icon transparent. 
+    //We don't want to set the width or height cause
+    //that affects our before or after. 
+    background-color: transparent;
+  }
+
+  &__checkbox:checked + &__button &__icon::before {
+    //Rotate at 45deg about the 90deg which
+    //Is a horizontal line straight through. 
+    top: 0;
+    transform: rotate(135deg);
+  }
+
+  &__checkbox:checked + &__button &__icon::after {
+    //Rotate at -45deg about the 90deg which
+    //Is a horizontal line straight through. 
+    top: 0;
+    transform: rotate(-135deg);
+  }
+}

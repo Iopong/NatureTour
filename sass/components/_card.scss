@@ -1,0 +1,316 @@
+/*
+========================================
+********** CARD COMPONENT **************
+========================================
+* We make this card a component so it can
+be reused.
+
+* background-color
+
+* height:
+    We give it a height. 
+
+* transition:
+    We want it to flow through all transitions in .8s
+
+* perspective:
+    We want the behavior where it looks like the card 
+    is coming out at us. To get this effect we set a perspective.
+    The higher the number the less dramatic. The lower the more 
+    dramatic. We then mus call hover on the parent and on the child
+    to get this effect.
+
+* height:
+    50rem -> added here and in __side because when we set position
+    to absolute we take it out of the normal flow which flattens the parent.
+    Now we can't add clearfix so we add the height here. 
+
+* position:
+    relative -> because we want the __side-front, and __side-back
+    to stay where they are, else __side-front will be on top of __side-back.
+
+
+* __side {
+    postion:
+        absolute -> so that __side-front, and __side-back will be at the same
+        position: Top: 0, and left: 0. 
+    
+    width: 
+        100% -> of its container so that it fills the width, else the top,
+        and bottom will fill the same container. 
+
+    backface-visibility: 
+        hidden -> so that we can hide the back part of our card. 
+    
+    &--front
+        transform: position in degrees is already zero.
+
+    &--back
+        transform: set it to the back so we don't see it, until hover.
+* hover 
+    transform: 
+        rotate it about the y-axis -180 so we can see the back of 
+        the card. 360 would turn it back to it's initial position. 
+    
+    &__side--front:
+        we rotate the front side because the back side is already at 180deg
+
+
+*/
+
+.card {
+  perspective: 150rem;
+  -moz-perspective: 150rem;
+  position: relative;
+  height: 52rem;
+
+  &__side {
+    height: 52rem;
+    transition: all 0.8s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 3px;
+    overflow: hidden; /*img is overflowing our parent so we hide it*/
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15);
+
+    &--front {
+      background-color: $color-white;
+    }
+
+    &--back {
+      transform: rotateY(180deg);
+
+      &-1 {
+        background-image: linear-gradient(
+          to right bottom,
+          $color-secondary-light,
+          $color-secondary-dark
+        ); /*for linear-gradient it's background-image*/
+      }
+
+      &-2 {
+        background-image: linear-gradient(
+          to right bottom,
+          $color-primary-light,
+          $color-primary-dark
+        );
+      }
+
+      &-3 {
+        background-image: linear-gradient(
+          to right bottom,
+          $color-tertiary-light,
+          $color-tertiary-dark
+        );
+      }
+    }
+  }
+
+  &:hover &__side--front {
+    transform: rotateY(-180deg);
+  }
+
+  &:hover &__side--back {
+    transform: rotateY(0);
+  }
+
+  // FRONT SIDE STYLING
+  &__picture {
+    margin-bottom: 1rem;
+    background-size: cover;
+    height: 23rem;
+    background-blend-mode: screen; /*new property doesn't work on IE or edge*/
+    -webkit-clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 85%,
+      0 100%
+    ); /*new property doesn't work on IE or edge*/
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 85%,
+      0 100%
+    ); /*new property doesn't work on IE or edge*/
+    border-top-left-radius: 3px;
+    /*added because overflow although hidden since we added
+     the clip-path we needed to round the top left and right radius*/
+    border-top-right-radius: 3px;
+
+    &--1 {
+      background-image: linear-gradient(
+          to right bottom,
+          $color-secondary-light,
+          $color-secondary-dark
+        ),
+        url(../img/nat-5.jpg); /*use this path cause our css will be in our style.css*/
+    }
+
+    &--2 {
+      background-image: linear-gradient(
+          to right bottom,
+          $color-primary-light,
+          $color-primary-dark
+        ),
+        url(../img/nat-6.jpg); /*use this path cause our css will be in our style.css*/
+    }
+
+    &--3 {
+      background-image: linear-gradient(
+          to right bottom,
+          $color-tertiary-light,
+          $color-tertiary-dark
+        ),
+        url(../img/nat-7.jpg); /*use this path cause our css will be in our style.css*/
+    }
+  }
+
+  &__heading {
+    font-size: 2.8rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    text-align: right;
+    color: $color-white;
+    position: absolute; /*so we can move it on top of our image.*/
+    top: 12rem; /*since it is absolute it will start from the top of the card so we move it down*/
+    right: 2rem;
+    width: 75%; /*make the heading narrower since it's block it will fill entire element, we don't want that*/
+  }
+
+  &__heading-span {
+    padding: 1rem 1.5rem;
+    -webkit-box-decoration-break: clone; /*treates our line as two separate boxes so taht they can be aligned*/
+    box-decoration-break: clone;
+
+    &--1 {
+      /*add a background image around our card header*/
+      background-image: linear-gradient(
+        to right bottom,
+        rgba($color-secondary-light, 0.85),
+        rgba($color-secondary-dark, 0.85)
+      );
+    }
+
+    &--2 {
+      background-image: linear-gradient(
+        to right bottom,
+        rgba($color-primary-light, 0.85),
+        rgba($color-primary-dark, 0.85)
+      );
+    }
+
+    &--3 {
+      background-image: linear-gradient(
+        to right bottom,
+        rgba($color-tertiary-light, 0.85),
+        rgba($color-tertiary-dark, 0.85)
+      );
+    }
+  }
+
+  &__details {
+    ul {
+      list-style: none;
+      width: 80%;
+      margin: 0 auto; /*zero top and bottom auto left and right to set our ul elements center. This is a block inside of a block*/
+
+      li {
+        text-align: center;
+        font-size: 1.5rem;
+        padding: 1rem;
+
+        &:not(:last-child) {
+          border-bottom: 1px solid $color-grey-light-2;
+        }
+      }
+    }
+  }
+
+  // FRONT SIDE STYLING
+  &__cta {
+    /*We want to center our cta which is it's own 
+        element so position: absolute. Top: 50% left: 50%
+        to move it within it's parent. Then we translate the
+        actual component to the center.
+        */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%; /*give it a with so that the card text can fit*/
+    text-align: center;
+  }
+
+  &__price-box {
+    text-align: center;
+    color: white;
+    margin-bottom: 8rem;
+  }
+
+  &__price-only {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+  }
+
+  &__price-value {
+    font-size: 6rem;
+    font-weight: 100;
+  }
+
+  // @include respond(tab-port) 
+  //We add this to account for devices that do not
+  //have a hover. Which is iphone landscape, and ipad pro etc.
+  @media only screen and (max-width: 56.25em),
+    only screen and (hover: none) {
+    height: auto;
+    border-radius: 3px;
+    background-color: $color-white;
+     box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
+
+    &__side {
+      height: auto;
+      position: relative;
+      box-shadow: none;
+
+      &--back {
+        transform: rotateY(0);
+        clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%)
+      }
+    }
+
+    &:hover &__side--front {
+      transform: rotateY(0);
+    }
+
+    &__details {
+      padding: 1rem 3rem;
+    }
+
+    // FRONT SIDE STYLING
+    &__cta {
+      /*We want to center our cta which is it's own 
+          element so position: absolute. Top: 50% left: 50%
+          to move it within it's parent. Then we translate the
+          actual component to the center.
+          */
+      position: relative;
+      top: 0;
+      left: 0;
+      transform: translate(0);
+      width: 100%; /*give it a with so that the card text can fit*/
+      padding: 7rem 4rem;
+    }
+
+    &__price-box {
+      margin-bottom: 3rem;
+    }
+
+    &__price-value {
+      font-size: 6rem;
+    }
+  }
+}

@@ -1,0 +1,86 @@
+/*
+===================================
+********** BASE FILE **************
+===================================
+
+* This file will hold the basic definitions
+of our project. 
+*/
+
+
+/* 
+===================================
+UNIVERSAL BROWSER SETTINGS
+===================================
+*/
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+    /* box-sizing: border-box;  */
+}
+
+
+/* 
+===================================
+UNIVERSAL FONT SETTING WHY?!?!
+
+-Although this could be considered
+as typography this is an overall set
+ting that determine what 1rem is. 
+===================================
+*/
+
+html {
+    // This defines what 1rem is  
+    font-size: 62.5%; // 1 rem = 10px; root => 16px; current 10px/16px = 62.5%;
+
+    // @include respond(phone) {
+    //     font-size: 50%; //1 rem = 8px; 8/16 = 50%;
+    // }
+
+    //Remember that order matters since we are doing 
+    //Desktop to mobile first. It's best to put in the 
+    //Order of largest to smallest. 
+
+    @include respond(big-desktop) {
+        font-size: 75%; //1 rem = 12px; 12/16 = 75%;
+    }
+
+    @include respond(tab-land) {
+        font-size: 56.25%; //1 rem = 9px; 8/16 = 56.25%;
+    }
+
+    @include respond(tab-port) { //max-width <= 900 so phone will be covered
+        font-size: 50%; //1 rem = 8px; 8/16 = 50%;
+    }
+}
+
+/* 
+===================================
+BODY - INHERITANCE
+===================================
+*/
+
+body {
+    box-sizing: border-box; /*set in body to be inherited*/
+    padding: 3rem;
+
+    @include respond(tab-port) {
+        //Remove the badding around 900px;
+        padding: 0px;
+    }
+}
+
+/* 
+ * When a use selects a text we use the psuedo element
+ * to change the background and text color
+ *
+*/
+::selection {
+    background-color: $color-primary;
+    color: $color-white;
+}

@@ -1,0 +1,103 @@
+/*
+========================================
+********** HEADER FILE **************
+========================================
+
+* We treat the header as a layout element
+where each page of the website would have the 
+header as piece of the layout. The header can
+also be considered as a component.  
+*/
+
+
+/*
+===================================
+HEADER OF OUR PAGE
+===================================
+*/
+
+.header {
+    height: 85vh;
+    background-image: linear-gradient(
+        to right bottom,
+        rgba($color-primary-light, 0.8),
+        rgba($color-primary-dark, 0.8)), 
+        url('../img/hero-small.jpg');
+    background-size: cover;
+    background-position: top;
+    position: relative;
+
+    //Feature query for when the clipath isn't 
+    //supported on some browsers.
+    @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+        -webkit-clip-path: polygon(
+            0 0,
+            100% 0,
+            100% 75vh,
+            0 100%
+        );
+        clip-path: polygon(
+            0 0,
+            100% 0,
+            100% 75vh,
+            0 100%
+        );
+
+        height: 95vh;
+    }
+
+    //192dpi is the resolution of the apple screen. 
+    //If our min resolution is that of the iphone screen, and 
+    //and the min width reaches or less 600px/16px => 37.5em or
+    //Min-width is 2000px/16px => 125em
+    //We serve up a different image.
+
+    //Important to note that this conditional statement has to 
+    //To work cross browsers. 
+    //The (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em)
+    //Is for the safari browser. Stating that if the device has a pixel
+    //Ratio of 2x or higher resolution. 
+    @media only screen and (min-resolution: 192dpi) and (min-width: 37.5em),
+        only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em),
+        only screen and (min-width: 125em) {
+        background-image: linear-gradient(
+        to right bottom,
+        rgba($color-primary-light, 0.8),
+        rgba($color-primary-dark, 0.8)), 
+        url('../img/hero.jpg');
+    }
+
+    @include respond(phone) {
+        -webkit-clip-path: polygon(
+        0 0,
+        100% 0,
+        100% 85vh,
+        0 100%
+    );
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        100% 85vh,
+        0 100%
+    );
+    }
+
+    //& copies the ".header" hince we can do nesting
+    &__logo-box {
+        position: absolute;
+        top: 4rem;
+        left: 4rem;
+    }
+
+    &__logo {
+        height: 3.5em;
+    }
+
+    &__text-box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+}

@@ -1,0 +1,182 @@
+/*
+========================================
+********** ABOUT STORIES **************
+========================================
+
+* width: 75% -> we don't want it to fit 
+    its entire width. 
+
+* margin: 0 auto -> center a block element
+    inside of another block element. 
+
+* font-size: -> the paragraph will inherit it.
+
+* background-color: rgba($color-white, .6) ->
+    * color white with an opacity of .6
+
+* transform: skewX(-12deg) we want our story to be skew about 
+    the x by -12deg. Remember that if we do this we have to 
+    skew the children of the __story to the upright position.
+    ** in the other example to do this we & > * {} which 
+    points to the descendents of the __shape. 
+    ** this will not work for the image because css does not 
+    allow for more than 1 transform currently (2017).
+
+* &__shape
+    * shape-outside -> circle(radius at horizontal and vertical);
+        * which is the center of the circle. 
+        * Does currently does not work in safari, firefox, edge
+        * In order for this to work the element must be floated, 
+            have dimensions (i.e. width, height), and it requires
+            a webkit prefix. 
+
+    * float: left -> floats the figure left so that the texts can
+        flow around it. 
+    
+    * tranform: translateX(-3rem) -> shifts the figure left so that 
+        there is space between the text and the figure. 
+        * skewX(12deg) we have to add it here because css does not 
+        allow for more than 2 transforms. 
+    
+    * postion: relative -> we want to absolutely position our image text 
+
+* &__img
+    * height: 100% -> remember that a key to responsive images is to set
+        a height. We set it to 100% because we have defined a width within
+        our __shape. 
+
+    * transform: translateX(-4rem) scale(1.4);
+        * translate the image so that it's centered in it's container.
+        * scale it by 140% so that we can scale it down on hover of the image.
+    
+    * opacity: 
+    
+    * backface-visibility: hidden;
+        * set this to prevent distortion of the image. 
+
+    * transition: all .5s; -> so that the &:hover __img psuedo class where 
+        we scale the image down to 1 
+
+
+* &__text 
+    * skewX(12deg) we have to add it here because css does not 
+        allow for more than 2 transforms. 
+
+* &__caption
+    * position: absolute -> so we can position our caption.
+
+    * opacity: 0 -> so we can increase it on hover. 
+
+    * top: 50%  and left: 50% to move it to the middle. 
+        * this is how we position absolutely positioned elements. 
+
+    * transition: all .5s -> animate our translation. 
+
+    * transform: translate (-50%, -20%) -> to move it towards the left
+        from the right by -50% and slightly up by -20%
+        * we will move it to -50% after a hover on the story. 
+        * not the figure. 
+
+    * backface-visibility: hidden -> stop our glitch. 
+
+* :hover &__caption
+    * opacity: 1 -> increase the opacity of the caption. 
+    * transform: translate(-50%, -50%) -> to  move it up to the middle. 
+
+* :hover &__img
+    * transform: translateX -> move the image to the center, by 4rem and
+        scale it down by 1. 
+    
+    * filter: blur(3px) brightness(80%) -> blur and brightness below 100%
+        is dark, above 100% is bright.
+*/
+
+.story {
+    width: 75%;
+    margin: 0 auto;
+    box-shadow: 0 3rem 6rem rgba($color-black, .1);
+    background-color: rgba($color-white, .6);
+    border-radius: 3px;
+    padding: 6rem;
+    padding-left: 9rem;
+    font-size: $default-font-size;
+    transform: skewX(-12deg);
+
+    @include respond(tab-port) {
+        width: 100%;
+        padding: 4rem;
+    }
+
+    @include respond(phone) {
+        transform: skewY(0);
+        font-size: 0.75rem;
+    }
+
+    &__shape {
+        width: 15rem;
+        height: 15rem;
+        float: left;
+        transform: translateX(-3rem) skewX(12deg);
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+
+        //Feature query for when the clipath isn't 
+        //supported on some browsers.
+        @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+            -webkit-clip-path: circle(50% at 50% 50%);
+            clip-path: circle(50% at 50% 50%);
+            -webkit-shape-outside: circle(50% at 50% 50%);
+            shape-outside: circle(50% at 50% 50%);
+            border-radius: none;
+        }
+
+        @include respond(phone) {
+            transform: translateX(-3rem) skewX(8deg);
+            width: 33%;
+            height: 10rem;
+            margin-bottom: 1rem;
+            float: left;
+        }
+    }
+
+    &__img {
+        //Translate to center our image
+        //it's container
+        height: 100%;
+        transform: translateX(-4rem) scale(1.4);
+        backface-visibility: hidden;
+        transition: all .5s;
+    }
+
+    &__text {
+        transform: skewX(12deg);
+
+        @include respond(phone) {
+            transform: skewX(0);
+        }
+    }
+
+    &__caption {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 20%);
+        color: $color-white;
+        text-transform: uppercase;
+        font-size: 1.7rem;
+        text-align: center;
+        transition: all .5s;
+        backface-visibility: hidden;
+    }
+
+    &:hover &__caption {
+        opacity: 1;
+        transform: translate(-50%, -50%)
+    }
+
+    &:hover &__img {
+        transform: translateX(-4rem) scale(1);
+        filter: blur(3px) brightness(80%);
+    }
+}

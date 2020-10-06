@@ -1,0 +1,1614 @@
+/*
+=====================================================================
+********** THIS HOLDS ALL THE MIXINS OF OUR WEBPAGE **************
+=====================================================================
+*/
+/*
+================================
+*********** CLEARFIX ***********
+================================
+* This is to clear our floats
+so that the height isn't flattened
+
+*/
+/*
+
+================================
+****** MEDIA QUERY MANAGER *****
+================================
+0 - 600px:  phone
+600 - 900px: Tablet portrait
+900 - 1200px:   Table landscape
+[1200 - 1800] -> current normal styles apply
+1800px + : Big desktop
+
+@ respond-phone
+    * @content directive - allows us to 
+    pass in a piece of code to be run
+
+1em = 16px
+
+$breakpoint argument choices:
+- phone
+- tab-port
+- tab-land
+- big-desktop
+
+only screen means that it is applied to 
+only screens and not print page etc. 
+*/
+/*
+=====================================================================
+********** THIS HOLDS ALL THE VARIABLES OF OUR WEBPAGE **************
+=====================================================================
+*/
+/*
+================================
+*********** COLORS *************
+================================
+*/
+/*
+================================
+******* GRID VARIABLES *********
+================================
+*/
+/*
+================================
+******* GRID VARIABLES *********
+================================
+*/
+/*width of the entire grid container*/
+/*vertical space between grid columns*/
+/*Horizontal space between columns*/
+/*
+===================================
+********** BASE FILE **************
+===================================
+
+* This file will hold the basic definitions
+of our project. 
+*/
+/* 
+===================================
+UNIVERSAL BROWSER SETTINGS
+===================================
+*/
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  /* box-sizing: border-box;  */ }
+
+/* 
+===================================
+UNIVERSAL FONT SETTING WHY?!?!
+
+-Although this could be considered
+as typography this is an overall set
+ting that determine what 1rem is. 
+===================================
+*/
+html {
+  font-size: 62.5%; }
+  @media only screen and (min-width: 112.5em) {
+    html {
+      font-size: 75%; } }
+  @media only screen and (max-width: 75em) {
+    html {
+      font-size: 56.25%; } }
+  @media only screen and (max-width: 56.25em) {
+    html {
+      font-size: 50%; } }
+
+/* 
+===================================
+BODY - INHERITANCE
+===================================
+*/
+body {
+  box-sizing: border-box;
+  /*set in body to be inherited*/
+  padding: 3rem; }
+  @media only screen and (max-width: 56.25em) {
+    body {
+      padding: 0px; } }
+
+/* 
+ * When a use selects a text we use the psuedo element
+ * to change the background and text color
+ *
+*/
+::selection {
+  background-color: #55c57a;
+  color: #fff; }
+
+/*
+========================================
+********** ANIMATION FILE **************
+========================================
+
+* This file will hold the animations of our page. 
+*/
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-10rem); }
+  80% {
+    transform: translateX(1rem); }
+  100% {
+    opacity: 1;
+    transform: translate(0); } }
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(10rem); }
+  80% {
+    transform: translateX(-1rem); }
+  100% {
+    opacity: 1;
+    transform: translate(0); } }
+
+@keyframes moveButtonUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10rem); }
+  100% {
+    opacity: 1;
+    transform: translate(0); } }
+
+/* 
+=================================================
+TYPOGRAPHY - DEALS WITH FONT, LETTER SPACING ETC.
+=================================================
+*/
+body {
+  font-family: "lato", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #777; }
+
+.heading-primary {
+  color: #fff;
+  text-transform: uppercase;
+  backface-visibility: hidden;
+  margin-bottom: 6rem; }
+  .heading-primary--main {
+    display: block;
+    font-size: 6rem;
+    font-weight: 700;
+    letter-spacing: 3.5rem;
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    animation-timing-function: ease-out; }
+    @media only screen and (max-width: 37.5em) {
+      .heading-primary--main {
+        letter-spacing: 1rem;
+        font-family: 5rem; } }
+  .heading-primary--sub {
+    display: block;
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: 1.75rem;
+    animation: moveInRight 1s ease-out; }
+    @media only screen and (max-width: 37.5em) {
+      .heading-primary--sub {
+        letter-spacing: 0.5rem; } }
+
+.heading-secondary {
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: inline-block;
+  background-image: linear-gradient(to right, #7ed56f, #28b485);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: .2rem;
+  transition: all .2s; }
+  @media only screen and (max-width: 56.25em) {
+    .heading-secondary {
+      font-size: 3rem; } }
+  @media only screen and (max-width: 37.5em) {
+    .heading-secondary {
+      font-size: 2.5rem; } }
+  .heading-secondary:hover {
+    transform: skewY(2deg) skewX(15deg) scale(1.1);
+    text-shadow: 0.5rem 1rem 2rem rgba(0, 0, 0, 0.2); }
+
+.heading-tertiary {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase; }
+  @media only screen and (max-width: 37.5em) {
+    .heading-tertiary {
+      font-size: 1rem; } }
+
+.paragraph {
+  font-size: 1.6rem; }
+  .paragraph:not(:last-child) {
+    margin-bottom: 3rem; }
+
+/* 
+==========================================================
+UTILITIES - DEALS WITH UTILITIES STYLES THAT CAN BE REUSED
+==========================================================
+*/
+/*
+We use this utility class so that we can style e.g.
+heading-secondary and position independently. It
+allow us to both reuse the heading secondary and the
+u-center-text. 
+*/
+.u-center-text {
+  text-align: center !important; }
+
+.u-margin-bottom-big {
+  margin-bottom: 8rem !important; }
+  @media only screen and (max-width: 56.25em) {
+    .u-margin-bottom-big {
+      margin-bottom: 5rem !important; } }
+
+.u-margin-bottom-medium {
+  margin-bottom: 4rem !important; }
+  @media only screen and (max-width: 56.25em) {
+    .u-margin-bottom-medium {
+      margin-bottom: 3rem !important; } }
+
+.u-margin-bottom-small {
+  margin-bottom: 1.5rem !important; }
+
+.u-margin-top-small {
+  margin-top: 8rem !important; }
+
+.u-margin-top-huge {
+  margin-top: 10rem !important; }
+
+/*
+========================================
+********** BUTTON FILE **************
+========================================
+
+* This file will hold the button since it's
+a standalone component and can be resuable. 
+*/
+.btn, .btn:link, .btn:visited {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.5rem 4rem;
+  /*top, right, bottom, left */
+  display: inline-block;
+  /* block occupies entire element space */
+  border-radius: 10rem;
+  transition: all .2s;
+  position: relative;
+  font-size: 1.6rem;
+  border: none;
+  cursor: pointer; }
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+  /*x, y, blur, color*/ }
+  .btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    /* scale can be scaleX, scaleY */
+    opacity: 0; }
+
+.btn:active .btn:focus {
+  outline: none;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); }
+
+.btn--white {
+  background-color: #fff;
+  color: #777; }
+  .btn--white::after {
+    background-color: #fff; }
+
+.btn--green {
+  background-color: #55c57a;
+  color: #fff; }
+  .btn--green::after {
+    background-color: #fff; }
+
+.btn::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 10rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all .4s; }
+
+.btn.btn--animated {
+  /* 
+        animation; name, duration, timing-function, delay
+        animation-fill-mode: apply the animal before styling. 
+        */
+  animation: moveButtonUp .5s ease-out .75s;
+  animation-fill-mode: backwards; }
+
+.btn-text:link, .btn-text:visited {
+  font-size: 1.6rem;
+  color: #55c57a;
+  display: inline-block;
+  text-decoration: none;
+  border-bottom: 1px solid #55c57a;
+  padding: 3px;
+  transition: all .2s; }
+
+.btn-text:hover {
+  background-color: #55c57a;
+  color: #fff;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px); }
+
+.btn-text:active {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  transform: translateY(0); }
+
+/*
+================================
+******* IMAGE COMPOSITION COMPONENT *********
+================================
+
+* using BEM (block element model)
+* width:
+    * set to 55% browser with calculate the height
+* box-shadow:
+    * x, y, blur, rgba(color, opacity)
+* border-radius:
+    * round out our border a little bit. 
+* position:
+    * relative so that we can absolutely position
+    our photos. 
+
+* --p1, --p2, --p3
+    * we position them within our absolutely positioned
+    container. -2 to shift it up, 0 to push to the corners.
+
+* z-index: 
+    * We need to set an initial z-index for all the images
+    * so that on hover we can change it to make it appear
+    if front of all the images.
+
+* transition: 
+    * Since we are transforming by scaling by 105 we need to
+    set all are transitions in .2s
+
+* outline-offset:
+    * creates a space between the outline and our images. 
+
+* :hover
+    * transform: make our image appear larger. translate it on
+    the y so the image moves up. 
+    * box-shadow: if it's appearing larger increase the box-shadow
+    * z-index: increase the z-index so we see the image. 
+    * outline: we want to create a border around the image with space
+    inbetween the borde and the image. Now to add the space we need
+    to set the outline offset. 
+
+* how do we make sure the images around the hovered img becomes smaller
+    * &:hover &__photo:not(:hover)
+    * on hover in the composition component. Find the photo 
+    that is not hovered. 
+
+
+*/
+.composition {
+  position: relative; }
+  .composition__photo {
+    width: 55%;
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.4);
+    border-radius: 2px;
+    position: absolute;
+    z-index: 10;
+    transition: all .2s;
+    outline-offset: 2rem; }
+    @media only screen and (max-width: 56.25em) {
+      .composition__photo {
+        float: left;
+        position: relative;
+        width: 33.333333%;
+        box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.2); } }
+    .composition__photo--p1 {
+      left: 0;
+      top: -2rem; }
+      @media only screen and (max-width: 56.25em) {
+        .composition__photo--p1 {
+          top: 0;
+          transform: scale(1.2); } }
+    .composition__photo--p2 {
+      right: 0;
+      top: 2rem; }
+      @media only screen and (max-width: 56.25em) {
+        .composition__photo--p2 {
+          top: -1rem;
+          transform: scale(1.3);
+          z-index: 100; } }
+    .composition__photo--p3 {
+      left: 20%;
+      top: 10rem; }
+      @media only screen and (max-width: 56.25em) {
+        .composition__photo--p3 {
+          top: 1rem;
+          left: 0;
+          transform: scale(1.1); } }
+    .composition__photo:hover {
+      outline: 1.5rem solid #55c57a;
+      transform: scale(1.05) translateY(-0.5rem);
+      box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.4);
+      z-index: 20; }
+  .composition:hover .composition__photo:not(:hover) {
+    transform: scale(0.95); }
+
+/* 
+=================================================
+***************** FEATURE BOX *******************
+=================================================
+* This will be a feature box that will be reused
+* across four col-1-of-4 containers. 
+* Since we're using webfonts we can set the font-size
+* transition: transform our feature box within .3s
+* __icon
+    * we can treat it as a text since it's a webfont.
+    * display: inline /so that it fills its container
+    * background: we want our gradient left to right
+    * background-clip: clip it to fit only to our icon
+    * color: transparent so we can see the background image. 
+
+*/
+.feature-box {
+  background-color: rgba(255, 255, 255, 0.8);
+  font-size: 1.5rem;
+  padding: 2.5rem;
+  text-align: center;
+  border-radius: 3px;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+  transition: transform .3s; }
+  @media only screen and (max-width: 56.25em) {
+    .feature-box {
+      padding: 2rem; } }
+  .feature-box__icon {
+    font-size: 6rem;
+    margin-bottom: .5rem;
+    display: inline-block;
+    background-image: linear-gradient(to right, #7ed56f, #28b485);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent; }
+    @media only screen and (max-width: 56.25em) {
+      .feature-box__icon {
+        margin: 0; } }
+  .feature-box:hover {
+    transform: translateY(-1.5rem) scale(1.03); }
+
+/*
+========================================
+********** CARD COMPONENT **************
+========================================
+* We make this card a component so it can
+be reused.
+
+* background-color
+
+* height:
+    We give it a height. 
+
+* transition:
+    We want it to flow through all transitions in .8s
+
+* perspective:
+    We want the behavior where it looks like the card 
+    is coming out at us. To get this effect we set a perspective.
+    The higher the number the less dramatic. The lower the more 
+    dramatic. We then mus call hover on the parent and on the child
+    to get this effect.
+
+* height:
+    50rem -> added here and in __side because when we set position
+    to absolute we take it out of the normal flow which flattens the parent.
+    Now we can't add clearfix so we add the height here. 
+
+* position:
+    relative -> because we want the __side-front, and __side-back
+    to stay where they are, else __side-front will be on top of __side-back.
+
+
+* __side {
+    postion:
+        absolute -> so that __side-front, and __side-back will be at the same
+        position: Top: 0, and left: 0. 
+    
+    width: 
+        100% -> of its container so that it fills the width, else the top,
+        and bottom will fill the same container. 
+
+    backface-visibility: 
+        hidden -> so that we can hide the back part of our card. 
+    
+    &--front
+        transform: position in degrees is already zero.
+
+    &--back
+        transform: set it to the back so we don't see it, until hover.
+* hover 
+    transform: 
+        rotate it about the y-axis -180 so we can see the back of 
+        the card. 360 would turn it back to it's initial position. 
+    
+    &__side--front:
+        we rotate the front side because the back side is already at 180deg
+
+
+*/
+.card {
+  perspective: 150rem;
+  -moz-perspective: 150rem;
+  position: relative;
+  height: 52rem; }
+  .card__side {
+    height: 52rem;
+    transition: all 0.8s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 3px;
+    overflow: hidden;
+    /*img is overflowing our parent so we hide it*/
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15); }
+    .card__side--front {
+      background-color: #fff; }
+    .card__side--back {
+      transform: rotateY(180deg); }
+      .card__side--back-1 {
+        background-image: linear-gradient(to right bottom, #ffb900, #ff7730);
+        /*for linear-gradient it's background-image*/ }
+      .card__side--back-2 {
+        background-image: linear-gradient(to right bottom, #7ed56f, #28b485); }
+      .card__side--back-3 {
+        background-image: linear-gradient(to right bottom, #2998ff, #5643fa); }
+  .card:hover .card__side--front {
+    transform: rotateY(-180deg); }
+  .card:hover .card__side--back {
+    transform: rotateY(0); }
+  .card__picture {
+    margin-bottom: 1rem;
+    background-size: cover;
+    height: 23rem;
+    background-blend-mode: screen;
+    /*new property doesn't work on IE or edge*/
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    /*new property doesn't work on IE or edge*/
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    /*new property doesn't work on IE or edge*/
+    border-top-left-radius: 3px;
+    /*added because overflow although hidden since we added
+     the clip-path we needed to round the top left and right radius*/
+    border-top-right-radius: 3px; }
+    .card__picture--1 {
+      background-image: linear-gradient(to right bottom, #ffb900, #ff7730), url(../img/nat-5.jpg);
+      /*use this path cause our css will be in our style.css*/ }
+    .card__picture--2 {
+      background-image: linear-gradient(to right bottom, #7ed56f, #28b485), url(../img/nat-6.jpg);
+      /*use this path cause our css will be in our style.css*/ }
+    .card__picture--3 {
+      background-image: linear-gradient(to right bottom, #2998ff, #5643fa), url(../img/nat-7.jpg);
+      /*use this path cause our css will be in our style.css*/ }
+  .card__heading {
+    font-size: 2.8rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    text-align: right;
+    color: #fff;
+    position: absolute;
+    /*so we can move it on top of our image.*/
+    top: 12rem;
+    /*since it is absolute it will start from the top of the card so we move it down*/
+    right: 2rem;
+    width: 75%;
+    /*make the heading narrower since it's block it will fill entire element, we don't want that*/ }
+  .card__heading-span {
+    padding: 1rem 1.5rem;
+    -webkit-box-decoration-break: clone;
+    /*treates our line as two separate boxes so taht they can be aligned*/
+    box-decoration-break: clone; }
+    .card__heading-span--1 {
+      /*add a background image around our card header*/
+      background-image: linear-gradient(to right bottom, rgba(255, 185, 0, 0.85), rgba(255, 119, 48, 0.85)); }
+    .card__heading-span--2 {
+      background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.85), rgba(40, 180, 133, 0.85)); }
+    .card__heading-span--3 {
+      background-image: linear-gradient(to right bottom, rgba(41, 152, 255, 0.85), rgba(86, 67, 250, 0.85)); }
+  .card__details ul {
+    list-style: none;
+    width: 80%;
+    margin: 0 auto;
+    /*zero top and bottom auto left and right to set our ul elements center. This is a block inside of a block*/ }
+    .card__details ul li {
+      text-align: center;
+      font-size: 1.5rem;
+      padding: 1rem; }
+      .card__details ul li:not(:last-child) {
+        border-bottom: 1px solid #eee; }
+  .card__cta {
+    /*We want to center our cta which is it's own 
+        element so position: absolute. Top: 50% left: 50%
+        to move it within it's parent. Then we translate the
+        actual component to the center.
+        */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    /*give it a with so that the card text can fit*/
+    text-align: center; }
+  .card__price-box {
+    text-align: center;
+    color: white;
+    margin-bottom: 8rem; }
+  .card__price-only {
+    font-size: 1.4rem;
+    text-transform: uppercase; }
+  .card__price-value {
+    font-size: 6rem;
+    font-weight: 100; }
+  @media only screen and (max-width: 56.25em), only screen and (hover: none) {
+    .card {
+      height: auto;
+      border-radius: 3px;
+      background-color: #fff;
+      box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15); }
+      .card__side {
+        height: auto;
+        position: relative;
+        box-shadow: none; }
+        .card__side--back {
+          transform: rotateY(0);
+          clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%); }
+      .card:hover .card__side--front {
+        transform: rotateY(0); }
+      .card__details {
+        padding: 1rem 3rem; }
+      .card__cta {
+        /*We want to center our cta which is it's own 
+          element so position: absolute. Top: 50% left: 50%
+          to move it within it's parent. Then we translate the
+          actual component to the center.
+          */
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: translate(0);
+        width: 100%;
+        /*give it a with so that the card text can fit*/
+        padding: 7rem 4rem; }
+      .card__price-box {
+        margin-bottom: 3rem; }
+      .card__price-value {
+        font-size: 6rem; } }
+
+/*
+========================================
+********** ABOUT STORIES **************
+========================================
+
+* width: 75% -> we don't want it to fit 
+    its entire width. 
+
+* margin: 0 auto -> center a block element
+    inside of another block element. 
+
+* font-size: -> the paragraph will inherit it.
+
+* background-color: rgba($color-white, .6) ->
+    * color white with an opacity of .6
+
+* transform: skewX(-12deg) we want our story to be skew about 
+    the x by -12deg. Remember that if we do this we have to 
+    skew the children of the __story to the upright position.
+    ** in the other example to do this we & > * {} which 
+    points to the descendents of the __shape. 
+    ** this will not work for the image because css does not 
+    allow for more than 1 transform currently (2017).
+
+* &__shape
+    * shape-outside -> circle(radius at horizontal and vertical);
+        * which is the center of the circle. 
+        * Does currently does not work in safari, firefox, edge
+        * In order for this to work the element must be floated, 
+            have dimensions (i.e. width, height), and it requires
+            a webkit prefix. 
+
+    * float: left -> floats the figure left so that the texts can
+        flow around it. 
+    
+    * tranform: translateX(-3rem) -> shifts the figure left so that 
+        there is space between the text and the figure. 
+        * skewX(12deg) we have to add it here because css does not 
+        allow for more than 2 transforms. 
+    
+    * postion: relative -> we want to absolutely position our image text 
+
+* &__img
+    * height: 100% -> remember that a key to responsive images is to set
+        a height. We set it to 100% because we have defined a width within
+        our __shape. 
+
+    * transform: translateX(-4rem) scale(1.4);
+        * translate the image so that it's centered in it's container.
+        * scale it by 140% so that we can scale it down on hover of the image.
+    
+    * opacity: 
+    
+    * backface-visibility: hidden;
+        * set this to prevent distortion of the image. 
+
+    * transition: all .5s; -> so that the &:hover __img psuedo class where 
+        we scale the image down to 1 
+
+
+* &__text 
+    * skewX(12deg) we have to add it here because css does not 
+        allow for more than 2 transforms. 
+
+* &__caption
+    * position: absolute -> so we can position our caption.
+
+    * opacity: 0 -> so we can increase it on hover. 
+
+    * top: 50%  and left: 50% to move it to the middle. 
+        * this is how we position absolutely positioned elements. 
+
+    * transition: all .5s -> animate our translation. 
+
+    * transform: translate (-50%, -20%) -> to move it towards the left
+        from the right by -50% and slightly up by -20%
+        * we will move it to -50% after a hover on the story. 
+        * not the figure. 
+
+    * backface-visibility: hidden -> stop our glitch. 
+
+* :hover &__caption
+    * opacity: 1 -> increase the opacity of the caption. 
+    * transform: translate(-50%, -50%) -> to  move it up to the middle. 
+
+* :hover &__img
+    * transform: translateX -> move the image to the center, by 4rem and
+        scale it down by 1. 
+    
+    * filter: blur(3px) brightness(80%) -> blur and brightness below 100%
+        is dark, above 100% is bright.
+*/
+.story {
+  width: 75%;
+  margin: 0 auto;
+  box-shadow: 0 3rem 6rem rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 3px;
+  padding: 6rem;
+  padding-left: 9rem;
+  font-size: 1.6rem;
+  transform: skewX(-12deg); }
+  @media only screen and (max-width: 56.25em) {
+    .story {
+      width: 100%;
+      padding: 4rem; } }
+  @media only screen and (max-width: 37.5em) {
+    .story {
+      transform: skewY(0);
+      font-size: 0.75rem; } }
+  .story__shape {
+    width: 15rem;
+    height: 15rem;
+    float: left;
+    transform: translateX(-3rem) skewX(12deg);
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%; }
+    @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+      .story__shape {
+        -webkit-clip-path: circle(50% at 50% 50%);
+        clip-path: circle(50% at 50% 50%);
+        -webkit-shape-outside: circle(50% at 50% 50%);
+        shape-outside: circle(50% at 50% 50%);
+        border-radius: none; } }
+    @media only screen and (max-width: 37.5em) {
+      .story__shape {
+        transform: translateX(-3rem) skewX(8deg);
+        width: 33%;
+        height: 10rem;
+        margin-bottom: 1rem;
+        float: left; } }
+  .story__img {
+    height: 100%;
+    transform: translateX(-4rem) scale(1.4);
+    backface-visibility: hidden;
+    transition: all .5s; }
+  .story__text {
+    transform: skewX(12deg); }
+    @media only screen and (max-width: 37.5em) {
+      .story__text {
+        transform: skewX(0); } }
+  .story__caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 20%);
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1.7rem;
+    text-align: center;
+    transition: all .5s;
+    backface-visibility: hidden; }
+  .story:hover .story__caption {
+    opacity: 1;
+    transform: translate(-50%, -50%); }
+  .story:hover .story__img {
+    transform: translateX(-4rem) scale(1);
+    filter: blur(3px) brightness(80%); }
+
+/*
+========================================
+********** ABOUT STORIES **************
+========================================
+
+* position: absolute -> or else the video
+    * would be set on top of our story. remember
+    to set it's parent section-stories to relative. 
+
+* z-index: -1 -> so it moves behind the story. 
+
+* opacity: .15 -> so it makes the video more subtle. 
+
+* &__content
+    * height: 100% -> we want the video to entirely fit
+    our story section. 
+
+    * width: 100% -> same as above. 
+
+    * object-fit: cover -> works the same way as the cover 
+    property in background image. Cover also helps it maintain
+    it's aspect ratio to fill the parent element from top to bottom
+    and clips what it doesn't need. 
+*/
+.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  opacity: .15;
+  overflow: hidden; }
+  .bg-video__content {
+    height: 100%;
+    height: 100%;
+    width: 100%;
+    object-fit: cover; }
+
+/* 
+=================================================
+FORM - FORM COMPONENT OF OUR PAGE.
+=================================================
+
+__group:not(:last-child) 
+    * remembering that psuedo selectors begin with :
+    * this selects .form:__group and uses the not function
+    * to select every body with the class __group but the last child. 
+    * And adds a bottom margin. 
+
+* __input
+    * font size, font family, padding -> top, right, bottom, left.
+    * border radius, background -> rgba(color, opacity)
+    * border -> no border around it. 
+    * border-bottom -> width, style, transparent
+        * we set it to transparent because we don't
+        * want it to show. But we want to show it on focus
+        * without it, adding it only on the focus would 
+        * shift things down.
+        
+    *::-webkit-input-placeholder 
+        * it is a pseudo element that styles our place holder, 
+        * only valid in chrome.
+
+    *:focus
+        * outline -> none (we don't want the default HTML5 outline)
+        * however for accessibility reasons for users who use keyboards
+        * we should have some indication that an input has been selected. 
+        * box-shadow -> offset-x, offset-y, blur-radius, color
+        * border-bottom -> border width, style, color
+        *:invalid 
+            * making use of HTML5s input validation API we can
+
+*__label
+    * font size, font-weight -> bold, margin-left, and margin-top
+    * to put it right underneath our input. display: block so that
+    * we have the properties of our box model. 
+
+*__input:placeholder-shown + &__label
+    * select the input with the psuedo class :placeholder-shown
+    * And select the element directly next to it with the "+"
+    * element. Why are we doing this? 
+    * When the placeholder is shown we don't want to show our label
+    * We only want to show it once we've started typing. 
+    * opacity: 0
+        * because we want to animate it. We cannot animate visibility. 
+    * visibility: hidden
+        * we don't want to show the element. 
+    *tranform: translate(-4rem)
+        * although it's hidden we want to shift it to the left
+        * that we it simulates like it's moving in from the left. 
+ 
+*__radio-group
+    * width: 49% -> display the buttons side by side
+    * display: inline-block -> side by side. 
+
+*__radio-input
+    * display -> none -> we want to style the button ourselves. 
+    
+*__radio-button
+    * We want to create a style target style for our radius button
+    * however, we can't style labels. The best way to do it is with
+    * a <span> inline style. 
+    * border-radius -> 50% -> to get the circle. 
+    * display: inline-block 
+        * so that we can use the properties of border etc. 
+    * position: absolute 
+        * so that we can position it ontop of the radio button. 
+        * and also we that we can position the ::after circle 
+        * in the middle of the circle. 
+
+    ::after 
+        * we want to draw a solid circle and position it 
+        * in the middle of our hollowed circle. 
+        * we center it like since it's a block element. 
+        * opacity: 0
+            * so that it can be set once the radio is checked. 
+
+
+*__radio-input:checked ~ &__radio-label &__radio-button::after
+    * select the radio input when it's checked, after, select
+    * its neighbor radio-label, and then select the child input-button. 
+    * opacity: 1
+        * so that we show the inner circle once a radio button is checked. 
+
+*/
+.form__group:not(:last-child) {
+  margin-bottom: 2rem; }
+
+.form__input {
+  font-size: 1.5rem;
+  font-family: inherit;
+  color: inherit;
+  padding: 1.5rem 2rem;
+  border-radius: 2px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  border-bottom: 3px solid transparent;
+  width: 90%;
+  display: block;
+  transition: all .3s; }
+  @media only screen and (max-width: 56.25em) {
+    .form__input {
+      width: 100%; } }
+  .form__input:focus {
+    outline: none;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+    border-bottom: 3px solid #55c57a; }
+    .form__input:focus:invalid {
+      border-bottom: 3px solid #ff7730; }
+  .form__input::-webkit-input-placeholder {
+    color: #999; }
+
+.form__label {
+  font-size: 1.2rem;
+  font-weight: 700px;
+  margin-left: 2rem;
+  margin-top: .7rem;
+  display: block;
+  transition: all .3s; }
+
+.form__input:placeholder-shown + .form__label {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-4rem); }
+
+.form__radio-group {
+  width: 49%;
+  display: inline-block; }
+  @media only screen and (max-width: 56.25em) {
+    .form__radio-group {
+      width: 100%;
+      margin-bottom: 2rem; } }
+
+.form__radio-input {
+  display: none; }
+
+.form__radio-label {
+  font-size: 1.6rem;
+  cursor: pointer;
+  position: relative;
+  padding-left: 4.5rem; }
+
+.form__radio-button {
+  height: 3rem;
+  width: 3rem;
+  border: 5px solid #55c57a;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: -4; }
+  .form__radio-button::after {
+    content: "";
+    display: block;
+    height: 1.3rem;
+    width: 1.3rem;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #55c57a;
+    opacity: 0;
+    transition: opacity .2s; }
+
+.form__radio-input:checked ~ .form__radio-label .form__radio-button::after {
+  opacity: 1; }
+
+/*
+========================================
+********** POPUP FILE **************
+========================================
+
+*/
+.popup {
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2500;
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  visibility: hidden;
+  transition: all .3s;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.3); }
+  @supports (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px)) {
+    .popup {
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      background-color: rgba(0, 0, 0, 0.3); } }
+  .popup__content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    background-color: #fff;
+    box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    display: table;
+    overflow: hidden;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.25);
+    transition: all .4s .2s; }
+    @media only screen and (max-width: 56.25em) {
+      .popup__content {
+        display: block; } }
+  .popup__left {
+    width: 33.333333%;
+    display: table-cell; }
+    @media only screen and (max-width: 56.25em) {
+      .popup__left {
+        width: 100%;
+        display: inline-block; } }
+  .popup__right {
+    width: 66.6666667%;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 3rem 5rem; }
+    @media only screen and (max-width: 56.25em) {
+      .popup__right {
+        display: inherit;
+        width: 100%; } }
+  .popup__img {
+    display: block;
+    width: 100%; }
+    @media only screen and (max-width: 56.25em) {
+      .popup__img {
+        float: left;
+        width: 50%;
+        height: 20rem; } }
+  .popup__text {
+    font-size: 1.4rem;
+    margin-bottom: 4rem;
+    -moz-column-count: 2;
+    -moz-column-gap: 4rem;
+    -moz-column-rule: 1px solid #eee;
+    column-count: 2;
+    column-gap: 4rem;
+    column-rule: 1px solid #eee;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto; }
+    @media only screen and (max-width: 56.25em) {
+      .popup__text {
+        column-count: unset;
+        column-gap: 0;
+        column-rule: none; } }
+  .popup:target {
+    opacity: 1;
+    visibility: visible; }
+  .popup:target .popup__content {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1); }
+  .popup__close:link, .popup__close:visited {
+    color: #777;
+    position: absolute;
+    top: 2.5rem;
+    right: 2.5rem;
+    font-size: 3rem;
+    text-decoration: none;
+    display: inline-block;
+    line-height: 1; }
+  .popup__close:hover {
+    color: #55c57a; }
+
+/*
+============================================================
+********** FOOTER PAGE **************
+============================================================
+*/
+.footer {
+  background-color: #333;
+  padding: 10rem 0;
+  font-size: 1.4rem;
+  color: #f7f7f7; }
+  @media only screen and (max-width: 56.25em) {
+    .footer {
+      padding: 8rem 0; } }
+  .footer__log-box {
+    text-align: center;
+    margin-bottom: 8rem; }
+    @media only screen and (max-width: 56.25em) {
+      .footer__log-box {
+        margin-bottom: 6rem; } }
+  .footer__logo {
+    width: 15rem;
+    height: auto; }
+  .footer__navigation {
+    border-top: 1px solid #777;
+    padding-top: 2rem;
+    display: inline-block; }
+    @media only screen and (max-width: 56.25em) {
+      .footer__navigation {
+        width: 100%;
+        text-align: center; } }
+  .footer__list {
+    list-style: none; }
+  .footer__item {
+    display: inline-block; }
+    .footer__item:not(:last-child) {
+      margin-right: 1.5rem; }
+  .footer__link:link, .footer__link:visited {
+    color: inherit;
+    text-decoration: none;
+    background-color: #333;
+    text-transform: uppercase;
+    display: inline-block;
+    transition: all .2s; }
+  .footer__link:hover, .footer__link:active {
+    color: #55c57a;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
+    transform: rotate(5deg) scale(1.3); }
+  .footer__copyright {
+    border-top: 1px solid #777;
+    padding-top: 2rem;
+    width: 80%;
+    float: right; }
+    @media only screen and (max-width: 56.25em) {
+      .footer__copyright {
+        width: 100%;
+        float: none; } }
+
+/*
+========================================
+********** HEADER FILE **************
+========================================
+
+* We treat the header as a layout element
+where each page of the website would have the 
+header as piece of the layout. The header can
+also be considered as a component.  
+*/
+/*
+===================================
+HEADER OF OUR PAGE
+===================================
+*/
+.header {
+  height: 85vh;
+  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url("../img/hero-small.jpg");
+  background-size: cover;
+  background-position: top;
+  position: relative; }
+  @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+    .header {
+      -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+      clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+      height: 95vh; } }
+  @media only screen and (min-resolution: 192dpi) and (min-width: 37.5em), only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em), only screen and (min-width: 125em) {
+    .header {
+      background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url("../img/hero.jpg"); } }
+  @media only screen and (max-width: 37.5em) {
+    .header {
+      -webkit-clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+      clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%); } }
+  .header__logo-box {
+    position: absolute;
+    top: 4rem;
+    left: 4rem; }
+  .header__logo {
+    height: 3.5em; }
+  .header__text-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center; }
+
+/*
+============================================================
+********** GRID LAYOUT OF OUR PAGE **************
+============================================================
+
+* What's the different between width and max width?
+    * If we have enough available space then it'll
+    fill the width that we specify
+    * If not enough meaning width is smaller than we
+    have specified then it will fill the available space.
+
+* max-width: 114rem (114 * (16 * 62.5)) = 114px;
+    * Max width of our entire grid container
+* background-color: background color of width
+* margin: 0 auto 
+    * top: 0 bottom: 0 left: auto right: auto
+    * sets it in the center of our block level element not the entire page.
+
+* .row:not(:last-child)
+    * selects every element but the last child element. 
+    * you could also do .row:last-child { margin-bottom: 0 }
+
+* .col-1-of-2
+    * calc()
+        * scss enables us to use the calc function
+        * in-order to calculate the width of a grid. we
+        subtract the total width of the grid by the gutter-horizontal
+        or margin-right divided by the amt of columns.
+    * float
+        * we push all our elements to the left, since this is 
+        using a float layout scheme. 
+        * We add a margin right to everything but the last child
+
+*** Now we could set the background 
+float, and margin right for each col-1-of-blah or we can use an
+atribute selector. So we use [class^="col-"] that means any class
+that starts with col. Remember the no repeat clause. Always find
+an efficient way to run code. 
+***
+*/
+.row {
+  max-width: 114rem;
+  margin: 0 auto; }
+  .row:not(:last-child) {
+    margin-bottom: 8rem; }
+    @media only screen and (max-width: 56.25em) {
+      .row:not(:last-child) {
+        margin-bottom: 6rem; } }
+  @media only screen and (max-width: 56.25em) {
+    .row {
+      max-width: 50%;
+      padding: 0 3rem; } }
+  @media only screen and (max-width: 37.5em) {
+    .row {
+      max-width: 80%;
+      padding: 0 3rem; } }
+  .row::after {
+    content: "";
+    display: table;
+    clear: both; }
+  .row [class^="col-"] {
+    float: left; }
+    .row [class^="col-"]:not(:last-child) {
+      margin-right: 6rem; }
+      @media only screen and (max-width: 56.25em) {
+        .row [class^="col-"]:not(:last-child) {
+          margin-bottom: 6rem; } }
+    @media only screen and (max-width: 56.25em) {
+      .row [class^="col-"] {
+        width: 100% !important; } }
+  .row .col-1-of-2 {
+    width: calc((100% - 6rem) / 2); }
+  .row .col-1-of-3 {
+    width: calc((100% - 2 * 6rem) / 3); }
+  .row .col-2-of-3 {
+    width: calc(2 * ((100% - 2 * 6rem) / 3) + 6rem); }
+  .row .col-1-of-4 {
+    width: calc((100% - 3 * 6rem) / 4); }
+  .row .col-2-of-4 {
+    width: calc(2 * ((100% - 3 * 6rem) / 4) + 6rem); }
+  .row .col-3-of-4 {
+    width: calc(3 * ((100% - 3 * 6rem) / 4) + (2 * 6rem)); }
+
+/*
+========================================
+********** NAVIGATION FILE **************
+========================================
+
+* We treat the navigation as a layout element
+where each page of the website would have the 
+navigation as piece of the layout. The navigation can
+also be considered as a component.  
+*/
+.navigation__checkbox {
+  display: none; }
+
+.navigation__button {
+  background-color: #fff;
+  height: 7rem;
+  width: 7rem;
+  position: fixed;
+  top: 6rem;
+  right: 6rem;
+  border-radius: 50%;
+  z-index: 2000;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+  text-align: center; }
+  @media only screen and (max-width: 56.25em) {
+    .navigation__button {
+      top: 4rem;
+      right: 4rem; } }
+  @media only screen and (max-width: 37.5em) {
+    .navigation__button {
+      top: 3rem;
+      right: 3rem; } }
+
+.navigation__background {
+  height: 6rem;
+  width: 6rem;
+  border-radius: 50%;
+  position: fixed;
+  top: 6.5rem;
+  right: 6.5rem;
+  background-image: radial-gradient(#7ed56f, #28b485);
+  z-index: 1000;
+  transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1); }
+  @media only screen and (max-width: 56.25em) {
+    .navigation__background {
+      top: 4.5rem;
+      right: 4.5rem; } }
+  @media only screen and (max-width: 37.5em) {
+    .navigation__background {
+      top: 3.5rem;
+      right: 3.5rem; } }
+
+.navigation__nav {
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1500;
+  opacity: 0;
+  width: 0;
+  transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+
+.navigation__list {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  list-style: none;
+  text-align: center;
+  width: 100%; }
+
+.navigation__item {
+  margin: 1rem; }
+
+.navigation__link:link, .navigation__link:visited {
+  display: inline-block;
+  font-size: 3rem;
+  font-weight: 300;
+  color: #fff;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  background-image: linear-gradient(120deg, transparent 0%, transparent 50%, #fff 50%);
+  background-size: 220%;
+  transition: all .4s; }
+  .navigation__link:link span, .navigation__link:visited span {
+    margin-right: 1.5rem;
+    display: inline-block; }
+
+.navigation__link:hover, .navigation__link:active {
+  background-position: 100%;
+  color: #55c57a;
+  transform: translateX(1rem); }
+
+.navigation__checkbox:checked ~ .navigation__background {
+  transform: scale(80); }
+
+.navigation__checkbox:checked ~ .navigation__nav {
+  opacity: 1;
+  width: 100%; }
+
+.navigation__icon {
+  position: relative;
+  margin-top: 3.5rem; }
+  .navigation__icon, .navigation__icon::before, .navigation__icon::after {
+    width: 3rem;
+    height: 2px;
+    background-color: #333;
+    display: inline-block; }
+  .navigation__icon::before, .navigation__icon::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    transition: all .2s; }
+  .navigation__icon::before {
+    top: -.8rem; }
+  .navigation__icon::after {
+    top: .8rem; }
+
+.navigation__button:hover .navigation__icon::before {
+  top: -1rem; }
+
+.navigation__button:hover .navigation__icon::after {
+  top: 1rem; }
+
+.navigation__checkbox:checked + .navigation__button .navigation__icon {
+  background-color: transparent; }
+
+.navigation__checkbox:checked + .navigation__button .navigation__icon::before {
+  top: 0;
+  transform: rotate(135deg); }
+
+.navigation__checkbox:checked + .navigation__button .navigation__icon::after {
+  top: 0;
+  transform: rotate(-135deg); }
+
+/*
+=====================================================================
+********** HOLDS CSS FOR HOME PAGE **************
+=====================================================================
+*/
+/*
+========================================
+********** ABOUT SECTION **************
+========================================
+* background-color
+    * color light gray
+
+* padding
+    * area between border and content
+    * 25rem -> 25 * 10px -> 250px;
+
+* margin-top
+    * -20vh;
+    * we want to move it up to cover up the
+    white part of that polygon. We
+    know that our header covered 95vh and that
+    right side of our polygon covered 75vh. So
+    95 - 75 -> 20vh but -20vh to move up.
+
+* section-features
+    * padding
+    * background-image: linear gradient
+    * background-size: cover and fill our entire section
+    * transform: skewY(-7deg) shift the entire feature
+    section to move down by -7deg. 
+    * Now we have to make sure that our feature boxes
+    are not skewY. You use the child selector to skewY
+    the row or any direct descendant up by 7 deg. 
+    * margin-top: -10rem to shift our section up so that
+    the white gap is covered. 
+*/
+.section-about {
+  background-color: #f7f7f7;
+  padding: 25rem 0;
+  margin-top: -20vh; }
+  @media only screen and (max-width: 56.25em) {
+    .section-about {
+      padding: 20rem 0; } }
+
+.section-features {
+  padding: 20rem 0;
+  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url("../../img/nat-4.jpg");
+  background-size: cover;
+  transform: skewY(-7deg);
+  margin-top: -10rem; }
+  .section-features > * {
+    transform: skewY(7deg); }
+  @media only screen and (max-width: 56.25em) {
+    .section-features {
+      padding: 10rem 0; } }
+
+/*
+========================================
+********** ABOUT SECTION **************
+========================================
+*/
+.section-tours {
+  background-color: #f7f7f7;
+  padding: 25rem 0 15rem 0;
+  margin-top: -10rem; }
+  @media only screen and (max-width: 56.25em) {
+    .section-tours {
+      padding: 20rem 0 10rem 0; } }
+
+/*
+========================================
+********** STORIES SECTION **************
+========================================
+*/
+.section-stories {
+  position: relative;
+  padding: 15rem 0; }
+  @media only screen and (max-width: 56.25em) {
+    .section-stories {
+      padding: 10rem 0; } }
+
+/*
+========================================
+********** BOOK SECTION **************
+========================================
+
+* we add the book section to home because
+the background style of the form is specific 
+to the home page. The form itself is something that can
+be reused. That goes for .section-stories etc.
+
+* book
+    * background-image: linear-gradient(angle from x-axis,
+    color <percentage>, color <percentage>), url(<image relative path>)
+*/
+.section-book {
+  padding: 15rem 0;
+  background-image: linear-gradient(to right bottom, #7ed56f, #28b485); }
+
+.book {
+  background-image: linear-gradient(105deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 50%, transparent 50%), url(../img/nat-10.jpg);
+  background-size: 100%;
+  border-radius: 3px;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.2); }
+  @media only screen and (max-width: 75em) {
+    .book {
+      background-image: linear-gradient(105deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 65%, transparent 65%), url("../img/nat-10.jpg");
+      background-size: cover; } }
+  @media only screen and (max-width: 56.25em) {
+    .book {
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%), url("../img/nat-10.jpg"); } }
+  .book__form {
+    width: 50%;
+    padding: 6rem; }
+    @media only screen and (max-width: 75em) {
+      .book__form {
+        width: 65%; } }
+    @media only screen and (max-width: 56.25em) {
+      .book__form {
+        width: 100%; } }

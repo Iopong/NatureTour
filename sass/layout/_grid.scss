@@ -1,0 +1,111 @@
+/*
+============================================================
+********** GRID LAYOUT OF OUR PAGE **************
+============================================================
+
+* What's the different between width and max width?
+    * If we have enough available space then it'll
+    fill the width that we specify
+    * If not enough meaning width is smaller than we
+    have specified then it will fill the available space.
+
+* max-width: 114rem (114 * (16 * 62.5)) = 114px;
+    * Max width of our entire grid container
+* background-color: background color of width
+* margin: 0 auto 
+    * top: 0 bottom: 0 left: auto right: auto
+    * sets it in the center of our block level element not the entire page.
+
+* .row:not(:last-child)
+    * selects every element but the last child element. 
+    * you could also do .row:last-child { margin-bottom: 0 }
+
+* .col-1-of-2
+    * calc()
+        * scss enables us to use the calc function
+        * in-order to calculate the width of a grid. we
+        subtract the total width of the grid by the gutter-horizontal
+        or margin-right divided by the amt of columns.
+    * float
+        * we push all our elements to the left, since this is 
+        using a float layout scheme. 
+        * We add a margin right to everything but the last child
+
+*** Now we could set the background 
+float, and margin right for each col-1-of-blah or we can use an
+atribute selector. So we use [class^="col-"] that means any class
+that starts with col. Remember the no repeat clause. Always find
+an efficient way to run code. 
+***
+*/
+
+.row {
+    max-width: $grid-width;
+    margin: 0 auto;
+
+    &:not(:last-child) {
+        margin-bottom: $gutter-vertical;
+
+        @include respond(tab-port) {
+            margin-bottom: $gutter-vertical-small;
+        }
+    }
+
+    //We want the row it self to be 50% of it's 
+    //Max-width
+    @include respond(tab-port) {
+        max-width: 50%;
+        padding: 0 3rem;
+    }
+
+    @include respond(phone) {
+        max-width: 80%;
+        padding: 0 3rem;
+    }
+
+    @include clearfix;
+
+    [class^="col-"] {
+        float: left;
+
+        &:not(:last-child) {
+            margin-right: $gutter-horizontal;
+
+            //remove the gutter since they are 
+            //Taking a 100% of their container
+
+            @include respond(tab-port) {
+                margin-bottom: $gutter-vertical-small;
+            }
+        }
+
+        //Make it a hundred percent. 
+        @include respond(tab-port) {
+            width: 100% !important;
+        }
+    }
+
+    .col-1-of-2 {
+        width: calc((100% - #{$gutter-horizontal}) / 2);
+    }
+
+    .col-1-of-3 {
+        width: calc((100% - 2 * #{$gutter-horizontal}) / 3);
+    }
+
+    .col-2-of-3 {
+        width: calc(2 * ((100% - 2 * #{$gutter-horizontal}) / 3) + #{$gutter-horizontal});
+    }
+
+    .col-1-of-4 {
+        width: calc((100% - 3 * #{$gutter-horizontal}) / 4);
+    }
+
+    .col-2-of-4 {
+        width: calc(2 * ((100% - 3 * #{$gutter-horizontal}) / 4) + #{$gutter-horizontal})
+    }
+
+    .col-3-of-4 {
+        width: calc(3 * ((100% - 3 * #{$gutter-horizontal}) / 4) + (2 * #{$gutter-horizontal}));
+    }
+}

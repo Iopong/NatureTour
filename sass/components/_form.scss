@@ -1,0 +1,194 @@
+/* 
+=================================================
+FORM - FORM COMPONENT OF OUR PAGE.
+=================================================
+
+__group:not(:last-child) 
+    * remembering that psuedo selectors begin with :
+    * this selects .form:__group and uses the not function
+    * to select every body with the class __group but the last child. 
+    * And adds a bottom margin. 
+
+* __input
+    * font size, font family, padding -> top, right, bottom, left.
+    * border radius, background -> rgba(color, opacity)
+    * border -> no border around it. 
+    * border-bottom -> width, style, transparent
+        * we set it to transparent because we don't
+        * want it to show. But we want to show it on focus
+        * without it, adding it only on the focus would 
+        * shift things down.
+        
+    *::-webkit-input-placeholder 
+        * it is a pseudo element that styles our place holder, 
+        * only valid in chrome.
+
+    *:focus
+        * outline -> none (we don't want the default HTML5 outline)
+        * however for accessibility reasons for users who use keyboards
+        * we should have some indication that an input has been selected. 
+        * box-shadow -> offset-x, offset-y, blur-radius, color
+        * border-bottom -> border width, style, color
+        *:invalid 
+            * making use of HTML5s input validation API we can
+
+*__label
+    * font size, font-weight -> bold, margin-left, and margin-top
+    * to put it right underneath our input. display: block so that
+    * we have the properties of our box model. 
+
+*__input:placeholder-shown + &__label
+    * select the input with the psuedo class :placeholder-shown
+    * And select the element directly next to it with the "+"
+    * element. Why are we doing this? 
+    * When the placeholder is shown we don't want to show our label
+    * We only want to show it once we've started typing. 
+    * opacity: 0
+        * because we want to animate it. We cannot animate visibility. 
+    * visibility: hidden
+        * we don't want to show the element. 
+    *tranform: translate(-4rem)
+        * although it's hidden we want to shift it to the left
+        * that we it simulates like it's moving in from the left. 
+ 
+*__radio-group
+    * width: 49% -> display the buttons side by side
+    * display: inline-block -> side by side. 
+
+*__radio-input
+    * display -> none -> we want to style the button ourselves. 
+    
+*__radio-button
+    * We want to create a style target style for our radius button
+    * however, we can't style labels. The best way to do it is with
+    * a <span> inline style. 
+    * border-radius -> 50% -> to get the circle. 
+    * display: inline-block 
+        * so that we can use the properties of border etc. 
+    * position: absolute 
+        * so that we can position it ontop of the radio button. 
+        * and also we that we can position the ::after circle 
+        * in the middle of the circle. 
+
+    ::after 
+        * we want to draw a solid circle and position it 
+        * in the middle of our hollowed circle. 
+        * we center it like since it's a block element. 
+        * opacity: 0
+            * so that it can be set once the radio is checked. 
+
+
+*__radio-input:checked ~ &__radio-label &__radio-button::after
+    * select the radio input when it's checked, after, select
+    * its neighbor radio-label, and then select the child input-button. 
+    * opacity: 1
+        * so that we show the inner circle once a radio button is checked. 
+
+*/
+
+.form {
+
+    &__group:not(:last-child) { 
+        margin-bottom: 2rem;
+    }
+
+    &__input {
+        font-size: 1.5rem;
+        font-family: inherit; //Automatically inherit the font family. 
+        color: inherit;
+        padding: 1.5rem 2rem;
+        border-radius: 2px;
+        background-color: rgba($color-white, .5);//We want to be able to see through it a bit
+        border: none; //we don't want any border around it. 
+        border-bottom: 3px solid transparent;
+        width: 90%;
+        display: block;
+        transition: all .3s;
+
+        @include respond(tab-port) {
+            width: 100%;
+        }
+
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 1rem 2rem rgba($color-black, .1);
+            border-bottom: 3px solid $color-primary;
+
+            &:invalid {
+                border-bottom: 3px solid $color-secondary-dark;
+            }
+        }
+
+        &::-webkit-input-placeholder {
+            color: $color-grey-dark-2;
+        }
+    }
+
+    &__label {
+        font-size: 1.2rem;
+        font-weight: 700px;
+        margin-left: 2rem;
+        margin-top: .7rem;
+        display:block;
+        transition: all .3s;
+    }
+
+    &__input:placeholder-shown + &__label {
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(-4rem);
+    }
+
+    &__radio-group{
+        width: 49%;
+        display: inline-block;
+
+        @include respond(tab-port) {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__radio-input {
+        display: none;
+    }
+
+    &__radio-label {
+        font-size: $default-font-size;
+        cursor: pointer;
+        position: relative;
+        padding-left: 4.5rem;
+    }
+
+    &__radio-button {
+        height: 3rem;
+        width: 3rem;
+        border: 5px solid $color-primary;
+        border-radius: 50%;
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: -4;
+
+        &::after {
+            content: "";
+            display: block;
+            height: 1.3rem;
+            width: 1.3rem;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: $color-primary;
+            opacity: 0;
+            transition: opacity .2s;
+        }
+    }
+
+    &__radio-input:checked ~ &__radio-label &__radio-button::after {
+        opacity: 1;
+    }
+
+}
